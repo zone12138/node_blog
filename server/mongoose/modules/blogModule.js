@@ -13,6 +13,9 @@ const BlogSchema = new Schema({
   },
   type: {
     type: String
+  },
+  dateTime: {
+    type: String
   }
 })
 

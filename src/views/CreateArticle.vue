@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   data () {
     return {
@@ -43,7 +44,7 @@ export default {
   },
   methods: {
     saveArticle () {
-      console.log(this.article)
+      this.article.dateTime = moment().format('YYYY-MM-DD HH:mm')
       this.$http.post('article', this.article).then(res => {
         this.$message({
           message: '文章创建成功',

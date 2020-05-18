@@ -11,11 +11,15 @@
       </el-input>
     </div>
     <el-table :data="articlesData">
-      <el-table-column prop="title" label="标题" width="140"> </el-table-column>
-      <el-table-column prop="body" label="内容" width="220"> </el-table-column>
-      <el-table-column prop="type" label="类别" width="80"> </el-table-column>
-      <el-table-column fixed="right" label="操作" width="100">
+      <el-table-column prop="title" label="标题" width="140" align="center"> </el-table-column>
+      <el-table-column prop="body" label="内容" show-overflow-tooltip align="center"> </el-table-column>
+      <el-table-column prop="type" label="类别" width="80" align="center"> </el-table-column>
+      <el-table-column prop="dateTime" label="时间" width="180" align="center"> </el-table-column>
+      <el-table-column fixed="right" label="操作" width="150" align="center">
         <template slot-scope="scope">
+          <el-button @click="show(scope.row._id)" type="text" size="small"
+            >查看</el-button
+          >
           <el-button @click="modify(scope.row._id)" type="text" size="small"
             >编辑</el-button
           >
@@ -39,10 +43,13 @@ export default {
   },
   methods: {
     fetch () {
-      this.$http.get('article').then(res => {
+      this.$http.get('/article').then(res => {
         this.articlesData = res.data
         // console.log(res.data + 'hello')
       })
+    },
+    show (id) {
+      this.$router.push(`/article/detail/${id}`)
     },
     modify (id) {
       this.$router.push(`/article/modify/${id}`)
@@ -76,7 +83,7 @@ export default {
           select: this.select,
           input: this.input
         }
-        this.$http.post('article/search', obj).then(res => {
+        this.$http.post('/article/search', obj).then(res => {
           this.articlesData = res.data
         })
       } else {

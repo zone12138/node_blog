@@ -34,6 +34,7 @@
 
 <script>
 // import { create } from 'domain'
+import moment from 'moment'
 export default {
   data () {
     return {
@@ -42,6 +43,7 @@ export default {
   },
   methods: {
     saveArticle () {
+      this.article.dateTime = moment().format('YYYY-MM-DD HH:mm')
       this.$http
         .put(`/article/${this.$route.params.id}`, this.article)
         .then(res => {
