@@ -20,5 +20,16 @@ npm run build
 npm run lint
 ```
 
+### startup nodeJs server
+```
+node ./server/index.js
+```
+or 
+
+### startup nodeJs server(hot-reloads)
+```
+nodemon ./server/index.js
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
