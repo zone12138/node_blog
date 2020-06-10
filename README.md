@@ -19,22 +19,26 @@ npm run build
 ```
 npm run lint
 ```
-## Server setup
 
-### startup nodeJs server
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## 服务器启动  node(express) + mongoDB
+
+### 启动node
 ```
 node ./server/index.js
 ```
 or 
 
-### startup nodeJs server(hot-reloads)
+### 启动node(热更新) 
 ```
 nodemon ./server/index.js
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
+前提：需要下载 nodemon npm包
+```
+npm install nodemon
+```
 
 ## 解决跨域
 
