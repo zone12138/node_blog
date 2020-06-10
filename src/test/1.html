@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1</title>
+    <style>
+        #app{
+            height: 500px;
+            width: 500px;
+            background-color: aqua;
+            position: relative;
+        }
+
+        .box{
+            height: 100px;
+            width: 100px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            background-color: red;
+            line-height: 100px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <com></com>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var com = Vue.extend({
+            template:`<div class="box">{{message}}</div>`,
+            data() {
+                return {
+                    message:'box'
+                }
+            },
+        })
+
+        new com().$mount('com')
+    </script>
+</body>
+</html>

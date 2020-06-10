@@ -7,7 +7,7 @@ const express = require('express')
 const app = express()
 
 // 允许跨域
-app.use(require('cors')())
+// app.use(require('cors')())
 
 // 配置 body-parser 中间件（插件，专门用来解析表单 POST 请求体）
 // parse application/x-www-form-urlencoded

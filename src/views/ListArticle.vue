@@ -33,6 +33,11 @@
 </template>
 
 <script>
+
+import { outObj, outSex } from './es6Modules/index'
+
+console.log(outObj, outSex)
+
 export default {
   data () {
     return {
@@ -45,6 +50,7 @@ export default {
     fetch () {
       this.$http.get('/article').then(res => {
         this.articlesData = res.data
+        console.log(res)
         // console.log(res.data + 'hello')
       })
     },

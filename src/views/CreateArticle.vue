@@ -34,6 +34,13 @@
 
 <script>
 import moment from 'moment'
+
+import { outObj, outSex } from './es6Modules/index'
+outObj.name = 'daxiong'
+var a = outSex
+a = 'girl'
+console.log(outObj, outSex, a)
+
 export default {
   data () {
     return {

@@ -1,0 +1,1 @@
+# 1和2是Vue.extend和Vue.component比较
