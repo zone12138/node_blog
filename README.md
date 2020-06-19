@@ -44,6 +44,13 @@ npm install nodemon
 
 ### 前端方面(参考vue.config.js文件)
 ```
+// main.js 文件中设置 axios 的 baseURL 为 '/api', 让其匹配 vue.config.js 文件中 devServer.proxy 对象的属性
+// 创建一个接口和地址,定义到Vue的原型上
+Vue.prototype.$http = axios.create({
+  baseURL: '/api'
+})
+```
+```
 module.exports = {
   devServer: {
     port: 1112,
