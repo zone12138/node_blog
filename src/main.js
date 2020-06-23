@@ -10,7 +10,9 @@ Vue.config.productionTip = false
 
 // 创建一个接口和地址,定义到Vue的原型上
 Vue.prototype.$http = axios.create({
-  baseURL: '/api'
+  // baseURL: '/api' // 前端使用 devServer.proxy 代理处理跨域(vue.config.js)
+  baseURL: 'http://localhost:3000/api' // 后端使用 cors 包处理跨域(serve/index.js)
+  // baseURL: 'http://localhost:9999/api'
 })
 
 new Vue({

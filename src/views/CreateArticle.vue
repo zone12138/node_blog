@@ -61,7 +61,8 @@ export default {
       })
     },
     cancleOperation () {
-      this.$router.push('/article/index')
+      // this.$router.push('/article/index')
+      history.go(-1)
     }
   }
 }

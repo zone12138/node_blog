@@ -21,7 +21,10 @@ const routes = [
   {
     path: '/article/index',
     name: 'list',
-    component: ListArticle
+    component: ListArticle,
+    meta: {
+      keepAlive: true
+    }
   },
   {
     path: '/article/modify/:id',

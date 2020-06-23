@@ -1,7 +1,10 @@
 <template>
   <div>
-    <h3>{{article.title}}</h3>
-    <p>{{article.body}}</p>
+    <el-button-group>
+      <el-button type="primary" icon="el-icon-arrow-left" @click="back">返回</el-button>
+    </el-button-group>
+    <h3>{{ article.title }}</h3>
+    <p>{{ article.body }}</p>
   </div>
 </template>
 
@@ -17,6 +20,10 @@ export default {
       this.$http.get(`/article/${this.$route.params.id}`).then(res => {
         this.article = res.data
       })
+    },
+    back () {
+      // history.back()
+      history.go(-1)
     }
   },
   created () {
@@ -25,4 +32,11 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+  h3{
+    text-align: center;
+  }
+  p{
+    text-indent: 2em;
+  }
+</style>

@@ -55,7 +55,8 @@ export default {
         })
     },
     cancleOperation () {
-      this.$router.push('/article/index')
+      // this.$router.push('/article/index')
+      history.go(-1)
     },
     fetch () {
       this.$http.get(`/article/${this.$route.params.id}`).then(res => {
