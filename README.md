@@ -42,7 +42,7 @@ npm install nodemon
 
 ## 解决跨域
 
-### 前端方面(参考vue.config.js文件)
+### 前端方面(参考vue.config.js文件) 注：仅解决开发环境下的跨域问题, 生产环境下没有效果
 ```
 // main.js 文件中设置 axios 的 baseURL 为 '/api', 让其匹配 vue.config.js 文件中 devServer.proxy 对象的属性
 // 创建一个接口和地址,定义到Vue的原型上
