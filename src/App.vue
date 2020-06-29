@@ -9,13 +9,12 @@
             <el-menu-item index="/article/create">创建文章</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <!-- <el-submenu index='2'>
-          <template slot="title"><i class="el-icon-menu"></i>文章管理</template>
+        <el-submenu index='2'>
+          <template slot="title"><i class="el-icon-menu"></i>文章统计</template>
           <el-menu-item-group>
-            <el-menu-item index="/test">文章列表</el-menu-item>
-            <el-menu-item index="/test2">创建文章</el-menu-item>
+            <el-menu-item index="/article/echarts">echarts图表分析</el-menu-item>
           </el-menu-item-group>
-        </el-submenu> -->
+        </el-submenu>
       </el-menu>
     </el-aside>
 
@@ -27,10 +26,10 @@
 
       <!-- 首页内容 -->
       <el-main>
-        <keep-alive>
-          <router-view v-if="$route.meta.keepAlive"></router-view>
+        <!-- 动态实现页面缓存 -->
+        <keep-alive :include="$store.state.keepAliveList">
+          <router-view></router-view>
         </keep-alive>
-        <router-view v-if="!$route.meta.keepAlive"></router-view>
       </el-main>
     </el-container>
   </el-container>
@@ -52,6 +51,9 @@ html body {
   color: #333;
 }
 
+.echarts{
+  width: 100%;
+}
 /* .blog-bg{
   background-image: url(./assets/bg.jpg);
   background-size: 100% 100%;

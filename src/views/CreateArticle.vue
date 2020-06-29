@@ -17,6 +17,7 @@
     </el-form-item>
     <el-form-item label="文章类别">
       <el-radio-group v-model="article.type">
+        <el-radio label="测试"></el-radio>
         <el-radio label="随笔"></el-radio>
         <el-radio label="前端"></el-radio>
         <el-radio label="后端"></el-radio>
@@ -34,18 +35,13 @@
 
 <script>
 import moment from 'moment'
-
-import { outObj, outSex } from './es6Modules/index'
-outObj.name = 'daxiong'
-var a = outSex
-a = 'girl'
-console.log(outObj, outSex, a)
+// import { mapMutations } from '../store/index.js'
 
 export default {
   data () {
     return {
       article: {
-        type: '随笔'
+        type: '测试'
       }
     }
   },
@@ -57,6 +53,7 @@ export default {
           message: '文章创建成功',
           type: 'success'
         })
+        this.$store.commit('clear')
         this.$router.push('/article/index')
       })
     },

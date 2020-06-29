@@ -1,5 +1,11 @@
 module.exports = {
+  // 解决打包后生成的html文件中, 引入的 css 文件和 js 文件路径错误
   publicPath: '',
+  // 使用 echarts 相关的配置
+  transpileDependencies: [
+    'vue-echarts',
+    'resize-detector'
+  ],
   devServer: {
     port: 1112,
     proxy: {

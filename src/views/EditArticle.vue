@@ -17,6 +17,7 @@
     </el-form-item>
     <el-form-item label="文章类别">
       <el-radio-group v-model="article.type">
+        <el-radio label="测试"></el-radio>
         <el-radio label="随笔"></el-radio>
         <el-radio label="前端"></el-radio>
         <el-radio label="后端"></el-radio>
@@ -51,6 +52,7 @@ export default {
             message: '文章修改成功',
             type: 'success'
           })
+          this.$store.commit('clear')
           this.$router.push('/article/index')
         })
     },

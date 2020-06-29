@@ -4,7 +4,7 @@
       <el-button type="primary" icon="el-icon-arrow-left" @click="back">返回</el-button>
     </el-button-group>
     <h3>{{ article.title }}</h3>
-    <p>{{ article.body }}</p>
+    <p v-html="article.body"></p>
   </div>
 </template>
 

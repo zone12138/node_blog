@@ -39,12 +39,19 @@ import { outObj, outSex } from './es6Modules/index'
 console.log(outObj, outSex)
 
 export default {
+  name: 'ArticleList',
   data () {
     return {
       articlesData: [],
       select: 'title',
       input: ''
     }
+  },
+  beforeRouteLeave (to, from, next) {
+    // ...
+    this.$store.commit('add', this.$options.name)
+    console.log(this.$store.state)
+    next()
   },
   methods: {
     fetch () {

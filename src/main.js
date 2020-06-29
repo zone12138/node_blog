@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import './plugins/element.js'
+import './plugins/echarts.js'
 import './registerServiceWorker.js'
 
 Vue.config.productionTip = false

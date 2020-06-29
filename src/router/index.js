@@ -4,6 +4,7 @@ import CreateArticle from '../views/CreateArticle.vue'
 import ListArticle from '../views/ListArticle.vue'
 import EditArticle from '../views/EditArticle.vue'
 import ArticleDetail from '../views/ArticleDetail.vue'
+import ArticleEchart from '../views/ArticleEcharts.vue'
 
 Vue.use(VueRouter)
 
@@ -35,6 +36,11 @@ const routes = [
     path: '/article/detail/:id',
     name: 'detail',
     component: ArticleDetail
+  },
+  {
+    path: '/article/echarts',
+    name: 'echarts',
+    component: ArticleEchart
   }
 ]
 
