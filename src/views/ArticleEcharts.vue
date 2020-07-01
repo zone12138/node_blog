@@ -1,12 +1,13 @@
 <template>
-  <v-chart :options="polar" />
+  <v-chart :options="polar" :autoresize=true />
 </template>
 
 <script>
 export default {
   data () {
     return {
-      polar: {}
+      polar: {},
+      initOptions: {}
     }
   },
   methods: {
@@ -15,6 +16,7 @@ export default {
         this.sortArticleData(res.data)
       })
     },
+    // 整理出 echarts 图配置所需要的数据格式
     sortArticleData (data) {
       const articleObj = {}
       const articleTypeArr = []
@@ -71,6 +73,15 @@ export default {
           }
         ]
       }
+      window.addEventListener('resize', this.$handleResizeEcharts)
+      // 可以使用 $on 或者 $once 去 hook 监听 beforeDestroy 这个生命周期, 不用单独在 beforeDestroy 这个生命周期中移除事件绑定, 事件绑定和事件移除写在一起提高代码可读性
+      // 这里只是举个例子, 原本是打算在 window.onresize 中调用 echarts 的 resize 方法的, 后来发现使用了 vue-echarts , 可以使用 props 中的 autoresize 属性, 使其为 true 即可达到效果
+      this.$on('hook:beforeDestroy', () => {
+        window.removeEventListener('resize', this.$handleResizeEcharts)
+      })
+    },
+    $handleResizeEcharts () {
+      console.log('resize')
     }
   },
   created () {
@@ -79,4 +90,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.echarts{
+  width: 100% !important;
+}
+</style>

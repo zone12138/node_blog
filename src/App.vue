@@ -54,6 +54,14 @@ html body {
 .echarts{
   width: 100%;
 }
+
+.el-main {
+  display: flex !important;
+}
+
+.el-main>div{
+  width: 100%;
+}
 /* .blog-bg{
   background-image: url(./assets/bg.jpg);
   background-size: 100% 100%;

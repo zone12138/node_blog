@@ -11,9 +11,9 @@
       </el-input>
     </div>
     <el-table :data="articlesData">
-      <el-table-column prop="title" label="标题" width="140" align="center"> </el-table-column>
+      <el-table-column prop="title" label="标题" width="340" align="center"> </el-table-column>
       <el-table-column prop="body" label="内容" show-overflow-tooltip align="center"> </el-table-column>
-      <el-table-column prop="type" label="类别" width="80" align="center"> </el-table-column>
+      <el-table-column prop="type" label="类别" width="120" align="center"> </el-table-column>
       <el-table-column prop="dateTime" label="时间" width="180" align="center"> </el-table-column>
       <el-table-column fixed="right" label="操作" width="150" align="center">
         <template slot-scope="scope">
