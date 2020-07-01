@@ -48,5 +48,5 @@ export default {
     border-radius: 3px;
     margin-left: 2.5em;
     text-indent: 0;
-}
+  }
 </style>
