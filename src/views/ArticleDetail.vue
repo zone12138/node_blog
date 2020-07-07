@@ -41,8 +41,9 @@ export default {
   }
   /* 深度作用选择器 */
   .indent >>>.ql-syntax {
-    background-color: #23241f;
-    color: #f8f8f2;
+    /* background-color: #23241f; */
+    /* color: #f8f8f2; */
+    background-color: #f6f8fa;
     overflow: visible;
     padding: 5px 10px;
     border-radius: 3px;

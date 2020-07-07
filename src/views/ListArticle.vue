@@ -34,10 +34,6 @@
 
 <script>
 
-import { outObj, outSex } from './es6Modules/index'
-
-console.log(outObj, outSex)
-
 export default {
   name: 'ArticleList',
   data () {
