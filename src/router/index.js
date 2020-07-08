@@ -58,6 +58,7 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
+  // 生产环境下, base 属性的值需要与 vue.config.js 文件中的 assetsDir 属性的值保持一致, 否则请求的路由页面的资源(如 css, js 文件)会报错(404)
   base: process.env.NODE_ENV === 'prodution' ? '/article/' : process.env.BABEL_URL,
   // base: '/app/',
   routes
