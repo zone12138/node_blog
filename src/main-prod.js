@@ -18,8 +18,6 @@ Vue.prototype.$http = axios.create({
   baseURL: 'http://localhost:3000/api' // 后端使用 cors 包处理跨域(serve/index.js)
 })
 
-Vue.prototype.$http = axios
-
 Vue.config.productionTip = false
 
 new Vue({

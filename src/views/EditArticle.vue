@@ -82,7 +82,7 @@ export default {
             type: 'success'
           })
           this.$store.commit('clear')
-          this.$router.push('/article/index')
+          this.$router.push('/index')
         })
     },
     cancleOperation () {

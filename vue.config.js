@@ -2,6 +2,8 @@ module.exports = {
   // 生产环境下, 解决打包后生成的html文件中, 引入的 css 文件和 js 文件路径错误
   // 开发环境下, 解决页面刷新后空白, 且控制台报错: Uncaught SyntaxError: Unexpected token <
   publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
+  outputDir: 'dist',
+  assetsDir: 'article',
   chainWebpack: config => {
     // 发布模式
     config.when(process.env.NODE_ENV === 'production', config => {

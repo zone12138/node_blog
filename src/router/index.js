@@ -24,15 +24,15 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    redirect: '/article/index'
+    redirect: '/index'
   },
   {
-    path: '/article/create',
+    path: '/create',
     name: 'create',
     component: CreateArticle
   },
   {
-    path: '/article/index',
+    path: '/index',
     name: 'list',
     component: ListArticle,
     meta: {
@@ -40,17 +40,17 @@ const routes = [
     }
   },
   {
-    path: '/article/modify/:id',
+    path: '/modify/:id',
     name: 'edit',
     component: EditArticle
   },
   {
-    path: '/article/detail/:id',
+    path: '/detail/:id',
     name: 'detail',
     component: ArticleDetail
   },
   {
-    path: '/article/echarts',
+    path: '/echarts',
     name: 'echarts',
     component: ArticleEchart
   }
@@ -58,7 +58,8 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.BASE_URL,
+  base: process.env.NODE_ENV === 'prodution' ? '/article/' : process.env.BABEL_URL,
+  // base: '/app/',
   routes
 })
 

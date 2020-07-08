@@ -58,10 +58,10 @@ export default {
       })
     },
     show (id) {
-      this.$router.push(`/article/detail/${id}`)
+      this.$router.push(`/detail/${id}`)
     },
     modify (id) {
-      this.$router.push(`/article/modify/${id}`)
+      this.$router.push(`/modify/${id}`)
     },
     remove (id) {
       this.$confirm('是否删除该文章?', '提示', {
