@@ -30,7 +30,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## 服务器启动
 
-Node.js(Express) + MongoDB
+Node.js(Express) + MongoDB  
 [MongoDB官网](https://www.mongodb.com/)
 
 ### 启动node
