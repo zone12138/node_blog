@@ -14,7 +14,7 @@
 构成了错误路径( localhost:port/article/article/css/xxx.css ), 导致请求资源错误
 
 ### 解决方法
-删掉 path 属性的 '/article' 前缀字段  
+删掉 path 属性的 '/article' 前缀字段, 并将 vue 组件中对应的路由路径进行检查, 确保是否相应的删除和是否保持一致  
 (注： 并不晓得是不是最优方法, 尝试以不同方式修改了 vue.config.js 的 outputDir 和 assetsDir 均不见成效, 后使用了这种方法成功了)
 
 原 router/index.js 中配置的路由信息
