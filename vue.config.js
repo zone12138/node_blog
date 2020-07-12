@@ -18,7 +18,7 @@ module.exports = {
       config.set('externals', {
         // key 为引入的 npm 包名, value 为暴露在全局的属性(可通过浏览器输出 window 进行查看相应的相似的属性字段)
         vue: 'Vue',
-        // 'element-ui': 'ELEMENT', // 这里的 ELEMENT 无效(虽然打包文件体积小了 -- 要在完整引入才生效, 按需引入不会生效), 打包时还是会将其打包进去, 现在只能在 main-prod.js 文件中注释掉 plugins/element.js 文件的引入
+        // 'element-ui': 'ELEMENT', // 这里的 ELEMENT 无效(虽然打包文件体积小了 -- 要在完整引入才生效, 按需引入不会生效), 打包时还是会将其打包进去, 解决办法为: 将 plugins/element.js 文件中 import 引入 css 的那行代码注释掉(该方法在 "按需引入" 方式下不起效)
         // 'vue-router': 'VueRouter',
         vuex: 'Vuex',
         axios: 'axios',
