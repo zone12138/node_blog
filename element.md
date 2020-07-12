@@ -97,7 +97,7 @@
 
 ### 出现的问题
 
-+ 同时使用 import 方式和 public/index.html 页面通过 cdn 引入 vue 和 element-ui
++ 第一个报错信息是因为同时使用 import 方式和 public/index.html 页面通过 cdn 引入 vue 和 element-ui, 而没有在 vue.config.js 文件中配置 externals 属性
 + 通过 cdn 方式引入 vue 和 element-ui 时, 需要先引入 vue 后引入 element-ui, 因为 element-ui 依赖 vue
 + 第二个报错信息是因为在 vue-cli 中仅在 public/index.html 页面通过 cdn 引入 vue 和 element-ui 而没有通过 Vue.use(Element) 这种方式去使用 element-ui
 
