@@ -9,36 +9,129 @@
 ### 详细描述
 
 目前发现的问题是, 从某一路由路径页面跳转到另一路由页面路径时，请求资源文件(如 css , js 文件)都会带着多余的前缀 /article 路径;  
-即从 localhost:port/article/index 跳转至 localhost:port/article/echarts 时, 请求资源文件(如 css , js 文件) 路径为 localhost:port/article/article/css/xxx.css  
-而, 正确的资源路径是 localhost:port/article/css/xxx.css (上述的错误路径多了多余的前缀 /article )
+即从 localhost:port/article/index 跳转至 localhost:port/article/echarts 时, 请求资源文件(如 css , js 文件) 路径为 localhost:port/article/css/xxx.css  
+而, 正确的资源路径是 localhost:port/css/xxx.css (上述的错误路径多了多余的前缀 /article )
 
-感觉就像是某一路由的 ./ 的相对路径( localhost:port/article/index 的上一层目录即 localhost:port/article )加上另一路由的资源的路径 article/css/xxx.css ,  
-构成了错误路径( localhost:port/article/article/css/xxx.css ), 导致请求资源错误
+感觉就像是某一路由的 ./ 的相对路径 -- 也就是 vue.config.js 文件中的 publicPath 属性值( localhost:port/article/index 的上一层目录即 localhost:port/article )加上另一路由的资源的路径 css/xxx.css ,  
+构成了错误路径( localhost:port/article/css/xxx.css ), 导致请求资源错误
 
 ### 解决方法
 
-删掉 path 属性的 '/article' 前缀字段, 并将 vue 组件中对应的路由路径进行检查, 确保是否相应的删除和是否保持一致  
-(注： 并不晓得是不是最优方法, 尝试以不同方式修改了 vue.config.js 的 outputDir 和 assetsDir 均不见成效, 后使用了这种方法成功了)
+1. 删掉 path 属性的 '/article' 前缀字段, 并将 vue 组件中对应的路由路径进行检查, 确保是否相应的删除和是否保持一致, 即要与 vue.config.js 文件中的 publicPath 属性进行相对位置的匹配(也就是 localhost:post/echarts 的相对于 publicPath 属性值 './' 的地址为 localhost:post/, 再加上资源位置 css/xxx.css 构成了正确的资源请求路径)
 
-原 router/index.js 中配置的路由信息
+    <font color= #ff0000 >缺点：路由配置只能配置一层, 如果是嵌套路径或者多个 '/' 组成的路径(例如详情页面)将会无效, 因此不推荐</font>
 
-``` JavaScript
-{
-    path: '/article/echarts',
-    name: 'echarts',
-    component: ArticleEchart
-}
-```
+    原 router/index.js 中配置的路由信息
 
-现 router/index.js 中配置的路由信息
+    ``` JavaScript
+    {
+        path: '/article/echarts',
+        name: 'echarts',
+        component: ArticleEchart
+    }
+    ```
 
-``` JavaScript
-{
-    path: '/echarts',
-    name: 'echarts',
-    component: ArticleEchart
-}
-```
+    vue.config.js 中的配置
+
+    ``` javaScript
+        module.exports = {
+            publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
+        }
+    ```
+
+    现 router/index.js 中配置的路由信息
+
+    ``` JavaScript
+    {
+        path: '/echarts',
+        name: 'echarts',
+        component: ArticleEchart
+    }
+    ```
+
+2. 如果想要设置 vue.config.js 中的 assetsDir 属性(即将 js、css 文件夹都放进该属性值命名的文件夹中), 需要设置路由的 base 属性, 操作如下：
+
+    <font color= #ff0000 >缺点：路由配置只能配置一层, 如果是嵌套路径或者多个'/'的路径将会无效,与第一种无多大差别且麻烦, 因此也不推荐</font>
+
+    删除'/article', 现 router/index.js 中配置的路由信息
+
+    ``` JavaScript
+        {
+            path: '/echarts',
+            name: 'echarts',
+            component: ArticleEchart
+        }
+    ```
+
+    vue.config.js 中的配置
+
+    ``` javaScript
+        module.exports = {
+        // 生产环境下, 解决打包后生成的html文件中, 引入的 css 文件和 js 文件路径错误
+        // 开发环境下, 解决页面刷新后空白, 且控制台报错: Uncaught SyntaxError: Unexpected token <
+        publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
+        outputDir: 'dist',
+        // js、css 文件夹打包后放置的位置
+        assetsDir: 'article'
+        }
+    ```
+
+    src/router/index.js
+
+    ``` javaScript
+        const router = new VueRouter({
+        mode: 'history',
+        // 生产环境下, base 属性的值需要与 vue.config.js 文件中的 assetsDir 属性的值保持一致, 否则请求的路由页面的资源(如 css, js 文件)会报错(404)
+        base: process.env.NODE_ENV === 'prodution' ? '/article/' : process.env.BABEL_URL,
+        routes
+        })
+    ```
+
+3. 修改 vue.config.js 中的 publicPath 属性的值
+
+    原 vue.config.js 中的配置
+
+    ``` javaScript
+        module.exports = {
+            publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
+            outputDir: 'dist',
+            // js、css 文件夹打包后放置的位置
+            assetsDir: 'article'
+        }
+    ```
+
+    现 vue.config.js 中的配置
+
+    ``` javaScript
+        module.exports = {
+            // 生产环境下, 解决打包后生成的html文件中, 引入的 css 文件和 js 文件路径错误(这里不能直接通过html文件打开去校验打包成果, 需要通过将文件夹放到服务器中去验证)
+            // 在服务器当中请求的资源位置是相对于浏览器地址栏路径的, 也就是说请求的资源地址前缀为服务器的地址, 如果资源文件夹的路径更改(也就是 assetsDir 属性值变化, 这里的请求路径要做出相对应的修改)
+            // 直接将生成的 html 文件在浏览器中打开的话会出现问题, 请求的资源位置一样是根据浏览器地址栏路径的, 也就是相对于 html 文件在用户电脑本地上的路径进行相应的资源地址请求(在这里请求的位置是 c 盘下的直接子目录 -- 然而资源并没有打包在 c盘 根目录下)
+
+            // 开发环境下, 解决页面刷新后空白, 且控制台报错: Uncaught SyntaxError: Unexpected token <
+            publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
+            // 打包的文件夹默认是 dist
+            outputDir: 'dist',
+            // 打包的 js、css 文件夹所放置的位置, 相对于 outputDir 的位置
+            assetsDir: './',
+        }
+    ```
+
+    修改了 publicPath 值为 '/' , 也就是请求资源位置路径的前缀为服务器地址 -- localhost:port/ , 如今的请求资源路径是 服务器地址(这里是 localhost:post/ ) + 资源位置(这里是 css/xxx.css )构成正确的请求资源路径
+
+    <font color= #ff0000 >注意：如果 vue.config.js 中的 assetsDir 的值变化了, publicPath 的值也要进行相对应的修改</font>
+
+    <font color= #00ff00 >例子: assetsDir 的值更改为 'article' ,publicPath 的值也要相对应的修改为 '/article/'</font>
+
+    ``` javaScript
+        module.exports = {
+            publicPath: process.env.NODE_ENV === 'production' ? '/article/' : '/',
+            // 打包的文件夹默认是 dist
+            outputDir: 'dist',
+            // 打包的 js、css 文件夹所放置的位置, 相对于 outputDir 的位置
+            assetsDir: 'article',
+        }
+    ```
 
 ## 页面白屏控制台报错
 
@@ -61,7 +154,7 @@ publicPath: '/'
 ``` JavaScript
 // 生产环境下, 解决打包后生成的html文件中, 引入的 css 文件和 js 文件路径错误
 // 开发环境下, 解决页面刷新后空白, 且控制台报错: Uncaught SyntaxError: Unexpected token <
-publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
+publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
 ```
 
 ## 打包后 chunk-vendors.js 文件过大的问题

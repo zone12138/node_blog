@@ -24,15 +24,15 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    redirect: '/index'
+    redirect: '/article/index'
   },
   {
-    path: '/create',
+    path: '/article/create',
     name: 'create',
     component: CreateArticle
   },
   {
-    path: '/index',
+    path: '/article/index',
     name: 'list',
     component: ListArticle,
     meta: {
@@ -40,17 +40,17 @@ const routes = [
     }
   },
   {
-    path: '/modify/:id',
+    path: '/article/modify/:id',
     name: 'edit',
     component: EditArticle
   },
   {
-    path: '/detail/:id',
+    path: '/article/detail/:id',
     name: 'detail',
     component: ArticleDetail
   },
   {
-    path: '/echarts',
+    path: '/article/echarts',
     name: 'echarts',
     component: ArticleEchart
   }
@@ -59,8 +59,8 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   // 生产环境下, base 属性的值需要与 vue.config.js 文件中的 assetsDir 属性的值保持一致, 否则请求的路由页面的资源(如 css, js 文件)会报错(404)
-  base: process.env.NODE_ENV === 'prodution' ? '/article/' : process.env.BABEL_URL,
-  // base: '/app/',
+  // base: process.env.NODE_ENV === 'prodution' ? '/article/' : process.env.BABEL_URL,
+  base: process.env.BABEL_URL,
   routes
 })
 

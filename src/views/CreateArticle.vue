@@ -89,12 +89,13 @@ export default {
           type: 'success'
         })
         this.$store.commit('clear')
-        this.$router.push('/index')
+        this.$router.push('/article/index')
       })
     },
     cancleOperation () {
-      // this.$router.push('/article/index')
-      history.go(-1)
+      // 取消创建时, 应当返回文章列表页面, 而不是依据历史记录返回上一步
+      this.$router.push('/article/index')
+      // history.go(-1)
     }
   }
 }

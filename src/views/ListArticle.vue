@@ -45,8 +45,8 @@ export default {
   },
   beforeRouteLeave (to, from, next) {
     // ...
+    // 离开该组件 -- 即前往 详情 或者 编辑 页面时, 将进行数据的缓存也就是不刷新页面
     this.$store.commit('add', this.$options.name)
-    console.log(this.$store.state)
     next()
   },
   methods: {
@@ -54,14 +54,13 @@ export default {
       this.$http.get('/article').then(res => {
         this.articlesData = res.data
         console.log(res)
-        // console.log(res.data + 'hello')
       })
     },
     show (id) {
-      this.$router.push(`/detail/${id}`)
+      this.$router.push(`/article/detail/${id}`)
     },
     modify (id) {
-      this.$router.push(`/modify/${id}`)
+      this.$router.push(`/article/modify/${id}`)
     },
     remove (id) {
       this.$confirm('是否删除该文章?', '提示', {

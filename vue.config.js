@@ -1,9 +1,14 @@
 module.exports = {
-  // 生产环境下, 解决打包后生成的html文件中, 引入的 css 文件和 js 文件路径错误
+  // 生产环境下, 解决打包后生成的html文件中, 引入的 css 文件和 js 文件路径错误(这里不能直接通过html文件打开去校验打包成果, 需要通过将文件夹放到服务器中去验证)
+  // 在服务器当中请求的资源位置是相对于浏览器地址栏路径的, 也就是说请求的资源地址前缀为服务器的地址, 如果资源文件夹的路径更改(也就是 assetsDir 属性值变化, 这里的请求路径要做出相对应的修改)
+  // 直接将生成的 html 文件在浏览器中打开的话会出现问题, 请求的资源位置一样是根据浏览器地址栏路径的, 也就是相对于 html 文件在用户电脑本地上的路径进行相应的资源地址请求(在这里请求的位置是 c 盘下的直接子目录 -- 然而资源并没有打包在 c盘 根目录下)
+
   // 开发环境下, 解决页面刷新后空白, 且控制台报错: Uncaught SyntaxError: Unexpected token <
-  publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
+  // 打包的文件夹默认是 dist
   outputDir: 'dist',
-  assetsDir: 'article',
+  // 打包的 js、css 文件夹所放置的位置, 相对于 outputDir 的位置
+  assetsDir: './',
   chainWebpack: config => {
     // 发布模式
     config.when(process.env.NODE_ENV === 'production', config => {
@@ -38,6 +43,8 @@ module.exports = {
         .add('./src/main.js')
     })
   },
+  // 如果你不需要生产环境的 source map， 可以将其设置为 false 以加速生产环境构建
+  productionSourceMap: false,
   // 使用 echarts 相关的配置
   transpileDependencies: ['vue-echarts', 'resize-detector'],
   devServer: {
