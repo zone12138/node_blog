@@ -8,7 +8,7 @@ module.exports = {
   // 打包的文件夹默认是 dist
   outputDir: 'dist',
   // 打包的 js、css 文件夹所放置的位置, 相对于 outputDir 的位置
-  assetsDir: './',
+  assetsDir: 'article',
   chainWebpack: config => {
     // 发布模式
     config.when(process.env.NODE_ENV === 'production', config => {

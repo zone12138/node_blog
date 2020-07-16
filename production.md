@@ -76,7 +76,17 @@
         }
     ```
 
-    src/router/index.js
+    原 src/router/index.js
+
+    ``` javaScript
+        const router = new VueRouter({
+        mode: 'history',
+        base:  process.env.BABEL_URL,
+        routes
+        })
+    ```
+
+    现 src/router/index.js
 
     ``` javaScript
         const router = new VueRouter({
@@ -87,7 +97,7 @@
         })
     ```
 
-3. 修改 vue.config.js 中的 publicPath 属性的值
+3. 修改 vue.config.js 中的 publicPath 属性的值(推荐方法)
 
     原 vue.config.js 中的配置
 
@@ -119,18 +129,39 @@
 
     修改了 publicPath 值为 '/' , 也就是请求资源位置路径的前缀为服务器地址 -- localhost:port/ , 如今的请求资源路径是 服务器地址(这里是 localhost:post/ ) + 资源位置(这里是 css/xxx.css )构成正确的请求资源路径
 
-    <font color= #ff0000 >注意：如果 vue.config.js 中的 assetsDir 的值变化了, publicPath 的值也要进行相对应的修改</font>
+    <font color= #ff0000 >注意：如果 vue.config.js 中的 assetsDir 的值变化了, src/router/index.js 文件也要进行相对应的修改</font>
 
-    <font color= #00ff00 >例子: assetsDir 的值更改为 'article' ,publicPath 的值也要相对应的修改为 '/article/'</font>
+    <font color= #00ff00 >例子: assetsDir 的值更改为 'article' , src/router/index.js 文件中路由实例的 base 属性值修改为 '/article/'</font>
 
     ``` javaScript
         module.exports = {
-            publicPath: process.env.NODE_ENV === 'production' ? '/article/' : '/',
+            publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
             // 打包的文件夹默认是 dist
             outputDir: 'dist',
             // 打包的 js、css 文件夹所放置的位置, 相对于 outputDir 的位置
             assetsDir: 'article',
         }
+    ```
+
+    原 src/router/index.js
+
+    ``` javaScript
+        const router = new VueRouter({
+        mode: 'history',
+        base:  process.env.BABEL_URL,
+        routes
+        })
+    ```
+
+    现 src/router/index.js
+
+    ``` javaScript
+        const router = new VueRouter({
+        mode: 'history',
+        // 生产环境下, base 属性的值需要与 vue.config.js 文件中的 assetsDir 属性的值保持一致, 否则请求的路由页面的资源(如 css, js 文件)会报错(404)
+        base: process.env.NODE_ENV === 'prodution' ? '/article/' : process.env.BABEL_URL,
+        routes
+        })
     ```
 
 ## 页面白屏控制台报错
